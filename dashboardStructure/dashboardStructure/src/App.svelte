@@ -1,17 +1,17 @@
 <script>
   import svelteLogo from './assets/svelte.svg';
   import viteLogo from '/vite.svg';
-  import Counter from './lib/Counter.svelte';
-  import Navbar from './lib/Navbar.svelte';
-  import Grafico1 from './lib/Grafico1.svelte';
-  import Grafico2y3 from './lib/Grafico2y3.svelte';
-  import Grafico4 from './lib/Grafico4.svelte';
-  import Grafico5 from './lib/Grafico5.svelte';
-  import Grafico6 from './lib/Grafico6.svelte';
-  import Grafico7 from './lib/Grafico7.svelte';
-  import Grafico8 from './lib/Grafico8.svelte';
-  import Info from './lib/Info.svelte';
-  import Titulo from './lib/Titulo.svelte';
+  import Counter from './components/Counter.svelte';
+  import Navbar from './components/Navbar.svelte';
+  import Grafico1 from './components/Grafico1.svelte';
+  import Grafico2y3 from './components/Grafico2y3.svelte';
+  import Grafico4 from './components/Grafico4.svelte';
+  import Grafico5 from './components/Grafico5.svelte';
+  import Grafico6 from './components/Grafico6.svelte';
+  import Grafico7 from './components/Grafico7.svelte';
+  import Grafico8 from './components/Grafico8.svelte';
+  import Info from './components/Info.svelte';
+  import Titulo from './components/Titulo.svelte';
 </script>
 
 <main>
@@ -63,7 +63,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: gray;
     border-radius: 10px;
     width: 100%; 
     height: 100%;
@@ -79,7 +78,7 @@
     grid-column: span 5;}
   .box4 { background-color: #090909; 
     grid-column: span 2;}
-  .box5 { background-color: #3c3c3d; 
+  .box5 { 
     grid-column: span 5;}
   .box6 { background-color: #FF69B4; 
     grid-column: span 3;}
