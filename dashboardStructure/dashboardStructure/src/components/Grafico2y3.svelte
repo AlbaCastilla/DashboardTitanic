@@ -12,15 +12,15 @@
   
   <style>
     .grafico-container {
-      display: grid;
-      grid-template-rows: 1fr 1fr; 
-      gap: 10px; 
-    }
-    .grafico2{
-        padding: 7vh;
-    }
-    .grafico3{
-        padding: 7vh;
-    }
+    display: grid;
+    grid-template-columns: 1fr;  /* Una sola columna */
+    grid-template-rows: auto auto; /* Filas automáticas sin espacio extra */
+    margin: 0;  /* Eliminar márgenes adicionales */
+    padding: 0; /* Eliminar padding del contenedor */
+  }
+  .grafico2, .grafico3 {
+    margin: 0; /* Eliminar el margen de los gráficos */
+    padding: 0; /* Eliminar padding dentro de los gráficos */
+  }
   </style>
   
