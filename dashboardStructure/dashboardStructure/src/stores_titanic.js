@@ -1,6 +1,6 @@
 // Importamos las funciones necesarias de Svelte y D3.js
 import { readable, derived, writable } from 'svelte/store';
-import { csv, autoType } from 'd3';
+import { csv, autoType, max } from 'd3';
 
 // Definimos la ruta del archivo que contiene los datos del Titanic desde el repositorio online
 const dataPath = 'https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv';
@@ -189,6 +189,7 @@ export const dataByGender = derived(
   export const dataBySexAge = derived(dataTitanic, ($dataTitanic) => {
     // Para cada género (male y female), filtramos los registros y mapeamos cada objeto
     // para obtener únicamente la edad (d.Age) y la propiedad de supervivencia (d.Survived)
+    
     const male = $dataTitanic
       .filter(d => d.Sex === 'male')
       .map(d => ({ age: d.Age, survived: d.Survived }));
@@ -201,6 +202,49 @@ export const dataByGender = derived(
     return { male, female };
   });
 
+
+  
+// Store `derived` para calcular la cantidad de sobrevivientes por edad y clase
+export const dataByClassEjemplo = derived([dataTitanic/* , filters */], ([$dataTitanic/* , $filters */])  => {
+    // Filtramos los pasajeros según los filtros seleccionados
+    const survivors = $dataTitanic.filter(d => 
+      d.Survived === 1 && d.Age !== null /*&&
+      $filters[d.Sex] && 
+      $filters[`class${d.Pclass}`] &&
+      $filters[`p${d.Embarked}`]
+   */ );
+  
+    // Agrupamos los datos por clase y edad
+    const grouped = survivors.reduce((acc, d) => {
+      const pclass = d.Pclass;
+      const age = Math.floor(d.Age); // Redondeamos la edad
+  
+      if (!acc[pclass]) acc[pclass] = {}; 
+      if (!acc[pclass][age]) acc[pclass][age] = [];
+  
+      acc[pclass][age].push(d);
+      return acc;
+    }, {});
+  
+    // Convertimos los datos en un formato adecuado para visualización
+    const processedData = Object.entries(grouped).map(([pclass, ages]) => ({
+      pclass: pclass,
+      values: Object.entries(ages)
+        .map(([age, people]) => ({
+          Age: Number(age),
+          count: people.length
+        }))
+        .sort((a, b) => a.Age - b.Age) // Ordenamos por edad
+    }));  
+  
+    return processedData;
+  });
+
+  export const maxCount = derived(dataByClassEjemplo, $dataByClassEjemplo =>
+    max($dataByClassEjemplo.flatMap(d => d.values.map(v => v.count)))
+  );
+  
+  
   export const dataByClassAge = derived(dataTitanic, ($dataTitanic) => {
     // Para cada clase (1, 2 y 3), filtramos los registros y mapeamos cada objeto
     // para obtener únicamente la edad (d.Age) y la propiedad de supervivencia (d.Survived)
@@ -257,6 +301,8 @@ export const dataByGender = derived(
     // 'nonSurvivors' contiene los precios de los pasajeros que no sobrevivieron
     return { survivors, nonSurvivors };
   });
+  
+
   
   
   /*export const dataByAge = derived(dataTitanic,($dataTitanic) => {

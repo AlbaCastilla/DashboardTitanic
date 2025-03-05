@@ -467,7 +467,7 @@
 
 
 <style>
-  .chart-container {
+  /* .chart-container {
     max-width: 400px;
     margin: auto;
     text-align: center;
@@ -481,5 +481,22 @@
     margin: auto;
     width: 100%;
     height: 100%;
-  }
+  } */
+  .chart-container {
+  width: 100%; /* Asegura que el contenedor del gráfico ocupe todo el espacio disponible */
+  height: 100%; /* Asegura que el contenedor del gráfico ocupe toda la altura de su contenedor */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Centra el gráfico dentro del contenedor */
+  align-items: center;
+  background: #fff;
+}
+
+svg {
+  width: 100%; /* El SVG ocupa el 100% del espacio disponible */
+  height: 100%; /* El SVG ocupa el 100% del espacio disponible */
+  background: #222;
+}
+
 </style>
